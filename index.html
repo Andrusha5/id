@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="auth-card">
+
+        <div id="step-email" class="auth-screen active"> 
+        <h2> Регистрация</h2>    
+        
+        <p> Введите почту для получения кода доступа</p>
+
+        <input type="email" id="email-input" placeholder="name@example.com">
+        <button type="button" id="btn-send-code">Получить код</button>
+        <p class="link-text">Уже есть аккаунт? <a href="#" id="go-to-login">Войти</a></p> 
+        </div> 
+
+
+
+        <div id="step-otp" class="auth-screen">
+        <h2> Проверка почты </h2>
+        <p> Введите 4-х значный код с почты</p>  
+        
+        <input type="text" id="otp-input" placeholder="0000" maxlength="4">
+        
+        <button type="button" id="btn-verify-otp"> Подтвердить </button>
+
+        
+        
+        </div>
+
+
+<div id="step-profile" class="auth-screen">
+
+    <h2> Создание профиля</h2>
+
+    <input type="text" id="username-input" placeholder="Ник (Допустимо a-z, A-Z, 0-9, _)">
+    
+    <span id="error-msg"> </span>
+
+
+    <input type="password" id="pass-input" placeholder="Придумайте пароль"> 
+
+    <input type="password" id="pass-confirm-input" placeholder="Повторите пароль">
+    <span id="pass-error" class="error-msg"></span>
+
+    <button type="button" id="btn-finish-reg"> Завершить регистрацию </button>
+
+
+
+
+
+
+    
+
+
+</div>
+
+
+    </div>
+
+
+    <div id="step-login" class="auth-screen"> 
+
+
+
+
+        <h2> Вход в систему</h2>
+        <input type="text" id="login-username" placeholder="Ваш ник" >
+        
+        <input type="password" placeholder="Введите ваш пароль"> 
+        <span id="login-error" class="error-msg"> </span>
+
+        <button type="button" id="btn-login"> Войти в личный кабинет  </button>
+
+
+        <p class="link-text" > Нет аккаунта? <a href="#" id="go-to-reg"> Зарегистрироваться</a> </p>
+
+
+        <div id="step-dashboard" class="auth-screen"> 
+            
+        
+            <h2 >Добро пожаловать 
+
+            
+
+            <span id="user-display-name"></span>
+
+            !
+        </h2>
+        </div>
+
+
+
+        <div class="dash-box">
+            
+
+            <h3> Статус: Доступ разрешен</h3>
+
+            <p > Вы успешно зашли в личный кабинет  </p>
+        
+        
+        </div>
+
+
+        <button type="button" id="btn-logout" class="btn-secondary"> Выйти </button>
+        
+    
+    
+    
+    
+    
+    
+    
+    
+    </div>
+
+
+
+
+
+
+<script src="script.js"></script>
+</body>
+</html>

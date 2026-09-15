@@ -1,0 +1,158 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+body{
+    font-family: 'JetBrains Mono', monospace, 'Times New Roman', Times, serif ;
+    background-color: #090d16;
+    color: #ffffff;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+
+}
+
+
+.auth-card{
+    background-color: #131b2e;
+    border: 1px solid rgba(56,189,248,0.2);
+    border-radius: 20px;
+    padding: 32px;
+    width: 100%;
+    max-width: 420px;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.6); 
+
+}
+
+
+.auth-screen{
+    display: none;
+}
+
+.auth-screen.active{
+    display: block;
+
+}
+
+
+
+h2{
+    font-size: 20px;
+    margin-bottom: 8px;
+    color: #38bdf8;
+
+}
+
+
+p{
+    font-size: 13px;
+    color: #94a3b8;
+    margin-bottom: 16px;
+    line-height: 1.5;
+
+}
+
+
+.link-text{
+    margin-top: 16px;
+    text-align: center;
+    font-size: 13px;
+
+}
+
+
+a{
+    color: #38bdf8;
+    text-decoration: none;
+    font-weight: 600;
+
+}
+
+a:hover{
+    text-decoration: underline;
+}
+
+
+input{
+    width: 100%;
+    padding: 14px 16px;
+    margin-top: 10px;
+    background-color: #0b1120;
+    border: 1px solid #1e293b;
+    border-radius: 10px;
+    color: #00ff88;
+    font-size: 14px;
+    font-family: inherit;
+    outline: none;
+    transition: all 0.3s ease;
+
+}
+
+input:focus{
+    border-color: #38bdf8;
+    box-shadow: 0 0 12px rgba(56,189,248,0.3);
+
+}
+
+button{
+    width: 100%;
+    padding: 14px;
+    margin-top: 20px;
+    background-color: #38bdf8;
+    color:#090d16;
+    border: none;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 700;
+    font-family: inherit;
+    cursor: pointer;
+    transition: all 0.3s ease;
+
+}
+
+
+button:hover{
+    background-color: #0ea5e9;
+    transform: translateY(-2px);
+
+}
+
+
+.btn-secondary{
+
+    background-color: #ff4757;
+    color: #ffffff;
+
+}
+
+
+.btn-secondary:hover{
+    background-color: #ff6b81;
+
+}
+
+.error-msg{
+    color: #ff4757;
+    font-size: 12px;
+    display: block;
+    margin-top: 6px;
+
+}
+
+
+.dash-box{
+    background: #0b1120;
+    padding: 16px;
+    border-radius: 12px;
+    border: 1px solid #1e293b;
+    margin-top: 16px;
+
+
+}
+
+
