@@ -1,3 +1,12 @@
+const firebaseConfig = {
+  apiKey: "AIzaSyAQlAwvaE-j5zqsIuUr1oLTmZ8TGu8dl_Y",
+  authDomain: "idsite-46796.firebaseapp.com",
+  projectId: "idsite-46796",
+  storageBucket: "idsite-46796.firebasestorage.app",
+  messagingSenderId: "837699375656",
+  appId: "1:837699375656:web:6a6e8f5f01ea61063f5b1d",
+  measurementId: "G-KS8DDBXL70"
+};
 // Ждем полной загрузки всех элементов HTML
 window.addEventListener('DOMContentLoaded', () => {
 
