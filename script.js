@@ -45,36 +45,44 @@ window.addEventListener('DOMContentLoaded', () => {
             tempEmail = email;
             generatedOTP = Math.floor(1000 + Math.random() * 9000).toString();
 
-            // Сообщение пользователю
+            // Меняем текст кнопки на загрузку
             btnSendCode.innerText = "Отправка...";
             btnSendCode.disabled = true;
 
-            // Отправляем реальное письмо через EmailJS
-            if (window.emailjs) {
-                const expireTime
-                = new Date(Date.now() + 15 * 6000).toLocateTimeString([], {hour: 
-                    '2-digit', minute:'2-digit'});
+            // Безопасный расчет времени (исправлено!)
+            let expireTime = "";
+            try {
+                const now = new Date();
+                now.setMinutes(now.getMinutes() + 15);
+                expireTime = now.toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit' });
+            } catch (timeErr) {
+                expireTime = "ближайшие 15 минут";
+            }
 
-
-
+            // Проверяем, загрузилась ли библиотека EmailJS в браузере
+            if (window.emailjs && typeof emailjs.send === 'function') {
                 emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
                     to_email: email,
                     email: email,
-                    passcode: generatedOTP,
-                    time: expireTime
-                }).then(() => {
+                    passcode: generatedOTP,   // Переменная {{passcode}} из твоего шаблона
+                    time: expireTime          // Переменная {{time}} из твоего шаблона
+                })
+                .then(() => {
                     alert(`✅ Код отправлен на почту ${email}!\nПроверьте папку Входящие или Спам.`);
                     btnSendCode.innerText = "Отправить код на Email";
                     btnSendCode.disabled = false;
                     showScreen('step-otp');
-                }).catch((err) => {
-                    alert(`⚠️ Не удалось отправить письмо на почту.\nПричина: ${err.text || 'Ошибка сервера'}\n\nКод для входа: ${generatedOTP}`);
+                })
+                .catch((err) => {
+                    // Если отправка не удалась (например, лимит писем закончился)
+                    alert(`⚠️ Ошибка сервера отправки. Переходим в тестовый режим.\n\n🔑 Твой код доступа: ${generatedOTP}`);
                     btnSendCode.innerText = "Отправить код на Email";
                     btnSendCode.disabled = false;
                     showScreen('step-otp');
                 });
             } else {
-                alert(`📧 [Тестовый режим]\nВаш код: ${generatedOTP}`);
+                // Если скрипт EmailJS заблокирован AdBlock-ом или нет сети
+                alert(`📧 [Тестовый режим (EmailJS заблокирован AdBlock/Сетью)]\n\nКод отправлен на виртуальный сервер!\n🔑 Твой код доступа: ${generatedOTP}`);
                 btnSendCode.innerText = "Отправить код на Email";
                 btnSendCode.disabled = false;
                 showScreen('step-otp');
@@ -90,10 +98,10 @@ window.addEventListener('DOMContentLoaded', () => {
             const userOTP = otpInput ? otpInput.value.trim() : '';
 
             if (userOTP === generatedOTP) {
-                alert('✅ Код верный! Придумайте ник и пароль.');
+                alert('✅ Код верный! Теперь создайте ник и пароль.');
                 showScreen('step-profile');
             } else {
-                alert('❌ Неверный код! Попробуйте еще раз.');
+                alert('❌ Неверный код подтверждения!');
             }
         });
     }
@@ -104,9 +112,7 @@ window.addEventListener('DOMContentLoaded', () => {
         btnFinishReg.addEventListener('click', () => {
             const username = document.getElementById('username-input').value.trim();
             const pass = document.getElementById('pass-input').value;
-
-
-const passConfirm = document.getElementById('pass-confirm-input').value;
+            const passConfirm = document.getElementById('pass-confirm-input').value;
 
             const usernameErr = document.getElementById('username-error');
             const passErr = document.getElementById('pass-error');
@@ -114,18 +120,18 @@ const passConfirm = document.getElementById('pass-confirm-input').value;
             if (usernameErr) usernameErr.innerText = '';
             if (passErr) passErr.innerText = '';
 
-            // Регулярное выражение: eng буквы, цифры, _
+            // Только английские буквы, цифры и _
             const validUsernameRegex = /^[a-zA-Z0-9_]+$/;
 
             if (!validUsernameRegex.test(username)) {
-                if (usernameErr) usernameErr.innerText = 'Ник должен быть только на английском (буквы, цифры, _)';
+                if (usernameErr) usernameErr.innerText = 'Ник может содержать только английские буквы, цифры и _';
                 return;
             }
 
-            // Проверка уникальности
+            // Проверка уникальности в базе
             const userExists = usersDB.some(u => u.username.toLowerCase() === username.toLowerCase());
             if (userExists) {
-                if (usernameErr) usernameErr.innerText = 'Этот ник уже занят! Выберите другой.';
+                if (usernameErr) usernameErr.innerText = 'Этот ник уже занят!';
                 return;
             }
 
@@ -139,14 +145,14 @@ const passConfirm = document.getElementById('pass-confirm-input').value;
                 return;
             }
 
-            // Сохраняем в базу
+            // Сохраняем в память
             const newUser = { email: tempEmail, username: username, password: pass };
             usersDB.push(newUser);
             localStorage.setItem('cyber_users', JSON.stringify(usersDB));
 
-            // Авторизуем и переходим на страницу игры
+            // Сохраняем активную сессию и делаем редирект
             localStorage.setItem('cyber_current_user', username);
-            alert('🎉 Регистрация завершена! Добро пожаловать в игру!');
+            alert('🎉 Регистрация успешна! Входим в игровой центр...');
             window.location.href = 'game.html';
         });
     }
@@ -172,7 +178,7 @@ const passConfirm = document.getElementById('pass-confirm-input').value;
         });
     }
 
-    // Переход на экран входа
+    // Ссылки переключения экранов
     const goToLogin = document.getElementById('go-to-login');
     if (goToLogin) {
         goToLogin.addEventListener('click', (e) => {
@@ -181,7 +187,6 @@ const passConfirm = document.getElementById('pass-confirm-input').value;
         });
     }
 
-    // Переход на экран регистрации
     const goToReg = document.getElementById('go-to-reg');
     if (goToReg) {
         goToReg.addEventListener('click', (e) => {
