@@ -1,129 +1,62 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
-    <link rel="stylesheet" href="style.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>CyberVault — Вход и Регистрация</title>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    
+    <!-- Скрипт для отправки реальных писем на Email -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
 </head>
 <body>
+
     <div class="auth-card">
 
-        <div id="step-email" class="auth-screen active"> 
-        <h2> Регистрация</h2>    
-        
-        <p> Введите почту для получения кода доступа</p>
+        <!-- ЭКРАН 1: Ввод почты -->
+        <div id="step-email" class="auth-screen active">
+            <h2>Регистрация</h2>
+            <p>Введите ваш Email для получения кода</p>
+            <input type="email" id="email-input" placeholder="name@example.com">
+            <button type="button" id="btn-send-code">Отправить код на Email</button>
+            <p class="link-text">Уже есть аккаунт? <a href="#" id="go-to-login">Войти</a></p>
+        </div>
 
-        <input type="email" id="email-input" placeholder="name@example.com">
-        <button type="button" id="btn-send-code">Получить код</button>
-        <p class="link-text">Уже есть аккаунт? <a href="#" id="go-to-login">Войти</a></p> 
-        </div> 
-
-
-
+        <!-- ЭКРАН 2: Код из письма -->
         <div id="step-otp" class="auth-screen">
-        <h2> Проверка почты </h2>
-        <p> Введите 4-х значный код с почты</p>  
-        
-        <input type="text" id="otp-input" placeholder="0000" maxlength="4">
-        
-        <button type="button" id="btn-verify-otp"> Подтвердить </button>
-
-        
-        
+            <h2>Проверка Email</h2>
+            <p>Введите 4-значный код, отправленный на почту</p>
+            <input type="text" id="otp-input" placeholder="0000" maxlength="4">
+            <button type="button" id="btn-verify-otp">Подтвердить код</button>
         </div>
 
+        <!-- ЭКРАН 3: Создание ника и пароля -->
+        <div id="step-profile" class="auth-screen">
+            <h2>Создание профиля</h2>
+            <input type="text" id="username-input" placeholder="Ник (eng, 0-9, _)">
+            <span id="username-error" class="error-msg"></span>
 
-<div id="step-profile" class="auth-screen">
+            <input type="password" id="pass-input" placeholder="Пароль">
+            <input type="password" id="pass-confirm-input" placeholder="Повторите пароль">
+            <span id="pass-error" class="error-msg"></span>
 
-    <h2> Создание профиля</h2>
+            <button type="button" id="btn-finish-reg">Зарегистрироваться</button>
+        </div>
 
-    <input type="text" id="username-input" placeholder="Ник (Допустимо a-z, A-Z, 0-9, _)">
-    
-    <span id="error-msg"> </span>
+        <!-- ЭКРАН 4: Вход -->
+        <div id="step-login" class="auth-screen">
+            <h2>Вход в аккаунт</h2>
+            <input type="text" id="login-username" placeholder="Ваш ник">
+            <input type="password" id="login-pass" placeholder="Ваш пароль">
+            <span id="login-error" class="error-msg"></span>
 
-
-    <input type="password" id="pass-input" placeholder="Придумайте пароль"> 
-
-    <input type="password" id="pass-confirm-input" placeholder="Повторите пароль">
-    <span id="pass-error" class="error-msg"></span>
-
-    <button type="button" id="btn-finish-reg"> Завершить регистрацию </button>
-
-
-
-
-
-
-    
-
-
-</div>
-
+            <button type="button" id="btn-login">Войти в игру</button>
+            <p class="link-text">Нет аккаунта? <a href="#" id="go-to-reg">Зарегистрироваться</a></p>
+        </div>
 
     </div>
 
-
-    <div id="step-login" class="auth-screen"> 
-
-
-
-
-        <h2> Вход в систему</h2>
-        <input type="text" id="login-username" placeholder="Ваш ник" >
-        
-        <input type="password" placeholder="Введите ваш пароль"> 
-        <span id="login-error" class="error-msg"> </span>
-
-        <button type="button" id="btn-login"> Войти в личный кабинет  </button>
-
-
-        <p class="link-text" > Нет аккаунта? <a href="#" id="go-to-reg"> Зарегистрироваться</a> </p>
-
-
-        <div id="step-dashboard" class="auth-screen"> 
-            
-        
-            <h2 >Добро пожаловать 
-
-            
-
-            <span id="user-display-name"></span>
-
-            !
-        </h2>
-        </div>
-
-
-
-        <div class="dash-box">
-            
-
-            <h3> Статус: Доступ разрешен</h3>
-
-            <p > Вы успешно зашли в личный кабинет  </p>
-        
-        
-        </div>
-
-
-        <button type="button" id="btn-logout" class="btn-secondary"> Выйти </button>
-        
-    
-    
-    
-    
-    
-    
-    
-    
-    </div>
-
-
-
-
-
-
-<script src="script.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
